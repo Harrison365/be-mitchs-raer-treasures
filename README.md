@@ -1,4 +1,10 @@
-test test
+- npm i
+- created .env.development (PGDATABASE=mitchs_rare_treasures)
+
+* ran 'npm run setup-dbs' twice
+* ran 'npm run seed'
+* edited seed.js to drop treasures and shops tables if they exist
+* ran 'npm run seed' to check there were no issues
 
 # Mitch's Rare Treasures
 
