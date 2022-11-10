@@ -1,4 +1,5 @@
 const db = require("./");
+const format = require("pg-format");
 
 const seed = ({ shopData, treasureData }) => {
   return db.query(`DROP TABLE IF EXISTS treasures;`).then(() => {
@@ -13,8 +14,18 @@ const seed = ({ shopData, treasureData }) => {
             `CREATE TABLE treasures (treasure_id SERIAL PRIMARY KEY, treasure_name VARCHAR(100) NOT NULL, colour VARCHAR(20) NOT NULL, age INT NOT NULL, cost_at_auction FLOAT NOT NULL, shop_id INT REFERENCES shops(shop_id));`
           );
         })
-        .then((returning) => {
-          console.log(returning);
+        .then(() => {
+          const arrayOfArrays = shopData.map(({ shop_name, owner, slogan }) => {
+            return [shop_name, owner, slogan];
+          });
+          const sqlStr = format(
+            `INSERT INTO shops (shop_name, owner, slogan) VALUES %L RETURNING *`,
+            arrayOfArrays
+          );
+          return db.query(sqlStr); //returns an object of each insertion in an array (result.rows)
+        })
+        .then((result) => {
+          console.log(result.rows);
         });
     });
   });
