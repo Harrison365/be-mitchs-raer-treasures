@@ -30,14 +30,19 @@ const seed = ({ shopData, treasureData }) => {
           return db.query(sqlStr);
         })
         .then((result) => {
-          console.log(treasureData);
           const refObj = makeRefObj(result.rows);
-          const treasureWithShopId = treasureData.map(
-            ({ treasure_name, colour, age, cost_at_auction, shop }) => {
-              return {}; //HERE!!!!!!
-            }
-          );
-        });
+          const treasureWithShopId = treasureData.map(({ treasure_name, colour, age, cost_at_auction, shop }) => {
+            let shop_id = refObj[shop]
+            return [treasure_name, colour, age, cost_at_auction, shop_id]; //HERE!!!!!!
+            })
+            const sqlStr2 = format(
+              `INSERT INTO treasures (treasure_name, colour, age, cost_at_auction, shop_id) VALUES %L RETURNING *`,
+              treasureWithShopId
+            );
+            return db.query(sqlStr2);
+        }).then((result) => {
+         return result.rows
+        })
     });
   });
 };
