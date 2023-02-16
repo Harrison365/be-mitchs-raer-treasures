@@ -1,7 +1,7 @@
 ### Tutor notes:
 
 - npm i
-- created .env.developmen (PGDATABASE=mitchs_rare_treasures)
+- created .env.development (PGDATABASE=mitchs_rare_treasures)
 
 * ran 'npm run setup-dbs' twice
 * ran 'npm run seed'
