@@ -2,10 +2,16 @@ const db = require("../db");
 
 exports.selectTreasures = ({ sort_by = "age", order = "asc", colour }) => {
   order = order.toLowerCase();
-  if (!["age", "cost_at_auction", "treasure_name"].includes(sort_by)) {
+  if (
+    sort_by !== "age" &&
+    sort_by !== "cost_at_auction" &&
+    sort_by !== "treasure_name"
+  ) {
+    //  if(!["age", "cost_at_auction", "treasure_name"].includes(sort_by)); is an alternatice to this if statement.
     return Promise.reject({ status: 400, msg: "Invalid sort value" });
   }
-  if (!["asc", "desc"].includes(order)) {
+  if (order !== "asc" && order !== "desc") {
+    //if(!["asc", "desc"].includes(order)) is an alternative if statement.
     return Promise.reject({ status: 400, msg: "Invalid order value :)" });
   }
 
@@ -14,6 +20,12 @@ exports.selectTreasures = ({ sort_by = "age", order = "asc", colour }) => {
   let queryStr = `
       SELECT treasures.*, shop_name FROM treasures
       JOIN shops ON treasures.shop_id = shops.shop_id `;
+
+  /*`SELECT * FROM treasures
+JOIN shops ON treasures.shop_id = shops.shop_id`
+^^^
+This will also work nut will not only give you all of the treasure columns and shop_id columns but all of the other shop columns too (which isnt necessary).
+*/
 
   if (colour) {
     queryValues.push(colour);

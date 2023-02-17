@@ -88,7 +88,7 @@ describe("GET /api/treasures", () => {
   });
 });
 
-describe.only("PATCH /api/treasures/:treasure_id", () => {
+describe("PATCH /api/treasures/:treasure_id", () => {
   test("status:200, updates the cost_at_auction of the specified treasure", () => {
     return request(app)
       .patch("/api/treasures/1")
