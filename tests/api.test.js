@@ -87,3 +87,17 @@ describe("GET /api/treasures", () => {
       });
   });
 });
+
+describe.only("PATCH /api/treasures/:treasure_id", () => {
+  test("status:200, updates the cost_at_auction of the specified treasure", () => {
+    return request(app)
+      .patch("/api/treasures/1")
+      .send({ cost_at_auction: "99.99" })
+      .expect(200)
+      .then((response) => {
+        const treasure = response.body;
+        expect(treasure.treasure_id).toBe(1);
+        expect(treasure.cost_at_auction).toBe(99.99);
+      });
+  });
+});

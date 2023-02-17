@@ -24,3 +24,15 @@ exports.selectTreasures = ({ sort_by = "age", order = "asc", colour }) => {
 
   return db.query(queryStr, queryValues).then(({ rows }) => rows);
 };
+
+exports.updateTreasure = (id, body) => {
+  const cost_at_auction = body.cost_at_auction;
+  return db
+    .query(
+      `UPDATE treasures SET cost_at_auction = $1 WHERE treasure_id = $2 RETURNING *;`,
+      [cost_at_auction, id]
+    )
+    .then((res) => {
+      return res.rows[0];
+    });
+};

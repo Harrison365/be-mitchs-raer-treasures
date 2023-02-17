@@ -1,9 +1,10 @@
 const express = require("express");
 const app = express();
-const { getTreasures } = require("./controller/controller");
+const { getTreasures, patchTreasuresById } = require("./controller/controller");
 app.use(express.json());
 
 app.get("/api/treasures", getTreasures);
+app.patch("/api/treasures/:treasure_id", patchTreasuresById);
 
 app.use((err, req, res, next) => {
   if (err.status && err.msg) {
@@ -20,7 +21,6 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  console.log(err);
   res.status(500).send({ msg: "Something went wrong" });
 });
 
