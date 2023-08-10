@@ -24,14 +24,4 @@ app.use((err, req, res, next) => {
   res.status(500).send({ msg: "Something went wrong" });
 });
 
-//OPTIONAL vvv - Add this then run node app.js - You can then make requests to this server on insomnia.
-//Install nodemon and add this script to package.json "dev": "nodemon app.js", then run npm run dev
-
-// app.listen(8080, (err) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log("express listnening to port 8080");
-//   }
-// });
 module.exports = app;
