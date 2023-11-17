@@ -48,4 +48,3 @@ exports.updateTreasure = (id, body) => {
       return res.rows[0];
     });
 };
-//
