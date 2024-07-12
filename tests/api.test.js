@@ -5,6 +5,7 @@ const testData = require("../db/data/test-data");
 const db = require("../db");
 
 beforeEach(() => seed(testData));
+//^^^ you must return the seed (implicitly or not) as it needs to know when to finish the before each.
 afterAll(() => db.end());
 
 describe("GET /api/treasures", () => {
